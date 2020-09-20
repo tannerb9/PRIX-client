@@ -7,8 +7,8 @@ import "./PRIX.css";
 function PRIX() {
   return (
     <>
-      <Route render={(props) => <NavBar {...props} />} />
-      <AppViews />;
+      {/* <Route render={(props) => <NavBar {...props} />} /> */}
+      <AppViews />
     </>
   );
 }
