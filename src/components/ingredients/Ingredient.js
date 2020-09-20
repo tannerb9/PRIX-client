@@ -6,7 +6,7 @@ const Ingredient = (props) => {
       <section className="ingredient">
         <div className="ingredient-name">{props.ingredient.name}</div>
         <div className="ingredient-category">
-          {props.ingredient.category.name}
+          {props.ingredient.ingredient_category.name}
         </div>
         <div className="purchase-quantity">
           {props.ingredient.purchase_quantity}{" "}
