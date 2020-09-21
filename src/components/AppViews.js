@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import IngredientList from "./ingredients/IngredientList";
+import RecipeList from "./recipes/RecipeList";
 import useSimpleAuth from "../hooks/ui/UseSimpleAuth";
 
 const AppViews = () => {
@@ -28,9 +29,6 @@ const AppViews = () => {
   };
 
   useEffect(getCurrentUser, []);
-  // useEffect(() => {
-  //   getCurrentUser();
-  // }, []);
 
   return (
     <>
@@ -52,6 +50,12 @@ const AppViews = () => {
           return (
             <IngredientList {...props} currentUser={currentUser} />
           );
+        }}
+      />
+      <Route
+        path="/recipes"
+        render={(props) => {
+          return <RecipeList {...props} currentUser={currentUser} />;
         }}
       />
     </>

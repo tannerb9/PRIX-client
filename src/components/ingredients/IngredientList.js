@@ -19,18 +19,13 @@ const IngredientList = (props) => {
         }
       )
         .then((response) => response.json())
-        .then((allIngredients) => {
-          setIngredients(allIngredients);
+        .then((companyIngredients) => {
+          setIngredients(companyIngredients);
         });
     }
   };
 
   useEffect(getIngredients, [props.currentUser]);
-
-  // useEffect(() => {
-  //   console.log(props.currentUser);
-  //   getIngredients(props.currentUser.company.id);
-  // }, []);
 
   return (
     <article className="ingredientList">
