@@ -1,10 +1,35 @@
 import { Route, withRouter } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import IngredientList from "./ingredients/IngredientList";
+import RecipeList from "./recipes/RecipeList";
+import useSimpleAuth from "../hooks/ui/UseSimpleAuth";
 
 const AppViews = () => {
+  const [currentUser, setCurrentUser] = useState({
+    company: { id: 0 },
+  });
+  const { isAuthenticated } = useSimpleAuth();
+
+  const getCurrentUser = () => {
+    if (isAuthenticated()) {
+      fetch("http://localhost:8000/employee/loggedInEmployee", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Token ${localStorage.getItem("PRIX_token")}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((user) => {
+          setCurrentUser(user);
+        });
+    }
+  };
+
+  useEffect(getCurrentUser, []);
+
   return (
     <>
       <Route
@@ -20,14 +45,17 @@ const AppViews = () => {
         }}
       />
       <Route
-        path="/ingredients/:companyId(\d+)"
+        path="/ingredients"
         render={(props) => {
           return (
-            <IngredientList
-              {...props}
-              companyId={props.match.params.companyId}
-            />
+            <IngredientList {...props} currentUser={currentUser} />
           );
+        }}
+      />
+      <Route
+        path="/recipes"
+        render={(props) => {
+          return <RecipeList {...props} currentUser={currentUser} />;
         }}
       />
     </>
