@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Ingredient from "./Ingredient";
-import useSimpleAuth from "../../hooks/ui/UseSimpleAuth";
 
 const IngredientList = (props) => {
   const [ingredients, setIngredients] = useState([]);
-  const { isAuthenticated } = useSimpleAuth();
 
   const getIngredients = () => {
-    if (isAuthenticated()) {
+    if (props.currentUser.company.id !== 0) {
       fetch(
-        `http://localhost:8000/ingredient?company=${props.companyId}`,
+        `http://localhost:8000/ingredient?company=${props.currentUser.company.id}`,
         {
           method: "GET",
           headers: {
@@ -27,7 +25,12 @@ const IngredientList = (props) => {
     }
   };
 
-  useEffect(getIngredients, []);
+  useEffect(getIngredients, [props.currentUser]);
+
+  // useEffect(() => {
+  //   console.log(props.currentUser);
+  //   getIngredients(props.currentUser.company.id);
+  // }, []);
 
   return (
     <article className="ingredientList">
