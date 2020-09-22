@@ -1,31 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
+import DataManager from "../../api/DataManager";
 
 const RecipeList = (props) => {
   const [recipes, setRecipes] = useState([]);
 
-  const getRecipes = () => {
-    if (props.currentUser.company.id !== 0) {
-      fetch(
-        `http://localhost:8000/recipe?company=${props.currentUser.company.id}`,
-        {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            Authorization: `Token ${localStorage.getItem(
-              "PRIX_token"
-            )}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((companyRecipes) => {
-          setRecipes(companyRecipes);
-        });
-    }
-  };
-
-  useEffect(getRecipes, [props.currentUser]);
+  useEffect(() => {
+    //NEEDED?
+    //    if (props.currentUser.company.id !== 0) {
+    DataManager.getAll(
+      "recipe",
+      props.currentUser.company.id
+    ).then((companyRecipes) => setRecipes(companyRecipes));
+  }, [props.currentUser]);
 
   return (
     <article className="recipeList">
