@@ -6,12 +6,22 @@ import IngredientList from "./ingredients/IngredientList";
 import RecipeList from "./recipes/RecipeList";
 import EmployeeList from "./employees/EmployeeList";
 import useSimpleAuth from "../hooks/ui/UseSimpleAuth";
+import DataManager from "../api/DataManager";
 
 const AppViews = () => {
   const [currentUser, setCurrentUser] = useState({
     company: { id: 0 },
   });
+  const [measurementTypes, setMeasurementTypes] = useState([]);
   const { isAuthenticated } = useSimpleAuth();
+
+  useEffect(() => {
+    DataManager.getAll("measurementtype", currentUser.company.id).then(
+      (allMeasurementTypes) => {
+        setMeasurementTypes(allMeasurementTypes);
+      }
+    );
+  }, [currentUser.company.id]);
 
   const getCurrentUser = () => {
     if (isAuthenticated()) {
@@ -30,6 +40,9 @@ const AppViews = () => {
   };
 
   useEffect(getCurrentUser, []);
+
+  // CAUSES INFINITE LOOP?
+  // useEffect(getCurrentUser, [currentUser]);
 
   return (
     <>
