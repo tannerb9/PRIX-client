@@ -13,35 +13,43 @@ const AppViews = () => {
     company: { id: 0 },
   });
   const [measurementTypes, setMeasurementTypes] = useState([]);
-  const { isAuthenticated } = useSimpleAuth();
+  const { isAuthenticated, isLoggedIn } = useSimpleAuth();
 
   useEffect(() => {
-    DataManager.getAll("measurementtype", currentUser.company.id).then(
-      (allMeasurementTypes) => {
-        setMeasurementTypes(allMeasurementTypes);
-      }
-    );
-  }, [currentUser.company.id]);
+    DataManager.getCurrentUser().then((user) => {
+      setCurrentUser(user);
+    });
+  }, [isLoggedIn]);
 
-  const getCurrentUser = () => {
-    if (isAuthenticated()) {
-      fetch("http://localhost:8000/employee/loggedInEmployee", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Token ${localStorage.getItem("PRIX_token")}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((user) => {
-          setCurrentUser(user);
-        });
-    }
-  };
+  // useEffect(() => {
+  //   DataManager.getAll("measurementtype", currentUser.company.id).then(
+  //     (allMeasurementTypes) => {
+  //       setMeasurementTypes(allMeasurementTypes);
+  //     }
+  //   );
+  // }, [currentUser.company.id]);
 
-  useEffect(getCurrentUser, []);
+  // const getCurrentUser = () => {
+  //   if (isAuthenticated()) {
+  //     fetch("http://localhost:8000/employee/loggedInEmployee", {
+  //       method: "GET",
+  //       headers: {
+  //         Accept: "application/json",
+  //         Authorization: `Token ${localStorage.getItem("PRIX_token")}`,
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((user) => {
+  //         setCurrentUser(user);
+  //       });
+  //   }
+  // };
 
-  // CAUSES INFINITE LOOP?
+  // useEffect(getCurrentUser, [isLoggedIn]);
+
+  // useEffect(() => {}, [currentUser]);
+
+  // CAUSES INFINITE LOOP
   // useEffect(getCurrentUser, [currentUser]);
 
   return (

@@ -15,7 +15,7 @@ const Login = (props) => {
     };
 
     login(credentials).then(() => {
-      props.history.push({ pathname: "/" });
+      props.history.push({ pathname: "/ingredients" });
     });
   };
 

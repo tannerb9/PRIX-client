@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const useSimpleAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {}, [isLoggedIn]);
 
   const isAuthenticated = () =>
     isLoggedIn || localStorage.getItem("PRIX_token") !== null;
@@ -37,7 +39,9 @@ const useSimpleAuth = () => {
       .then((res) => {
         if ("valid" in res && res.valid && "token" in res) {
           localStorage.setItem("PRIX_token", res.token);
+          console.log("before", isLoggedIn);
           setIsLoggedIn(true);
+          console.log("after", isLoggedIn);
         }
       });
   };
@@ -47,7 +51,7 @@ const useSimpleAuth = () => {
     localStorage.removeItem("PRIX_token");
   };
 
-  return { isAuthenticated, logout, login, register };
+  return { isAuthenticated, logout, login, register, isLoggedIn };
 };
 
 export default useSimpleAuth;
