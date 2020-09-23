@@ -8,6 +8,7 @@ const Login = (props) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    // props.setIsLoggedIn(false);
 
     const credentials = {
       username: username.current.value,
@@ -15,7 +16,8 @@ const Login = (props) => {
     };
 
     login(credentials).then(() => {
-      props.history.push({ pathname: "/" });
+      // props.setIsLoggedIn(true);
+      props.history.push({ pathname: "/ingredients" });
     });
   };
 

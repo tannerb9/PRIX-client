@@ -1,35 +1,22 @@
 import { Route, withRouter } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import IngredientList from "./ingredients/IngredientList";
 import RecipeList from "./recipes/RecipeList";
 import EmployeeList from "./employees/EmployeeList";
-import useSimpleAuth from "../hooks/ui/UseSimpleAuth";
+import DataManager from "../api/DataManager";
 
-const AppViews = () => {
-  const [currentUser, setCurrentUser] = useState({
-    company: { id: 0 },
-  });
-  const { isAuthenticated } = useSimpleAuth();
+const AppViews = (props) => {
+  // const [measurementTypes, setMeasurementTypes] = useState([]);
 
-  const getCurrentUser = () => {
-    if (isAuthenticated()) {
-      fetch("http://localhost:8000/employee/loggedInEmployee", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Token ${localStorage.getItem("PRIX_token")}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((user) => {
-          setCurrentUser(user);
-        });
-    }
-  };
-
-  useEffect(getCurrentUser, []);
+  // useEffect(() => {
+  //   DataManager.getAll("measurementtype").then(
+  //     (allMeasurementTypes) => {
+  //       setMeasurementTypes(allMeasurementTypes);
+  //     }
+  //   );
+  // }, [currentUser.company.id]);
 
   return (
     <>
@@ -48,21 +35,19 @@ const AppViews = () => {
       <Route
         path="/ingredients"
         render={(props) => {
-          return (
-            <IngredientList {...props} currentUser={currentUser} />
-          );
+          return <IngredientList {...props} />;
         }}
       />
       <Route
         path="/recipes"
         render={(props) => {
-          return <RecipeList {...props} currentUser={currentUser} />;
+          return <RecipeList {...props} />;
         }}
       />
       <Route
         path="/employees"
         render={(props) => {
-          return <EmployeeList {...props} currentUser={currentUser} />;
+          return <EmployeeList {...props} />;
         }}
       />
     </>
