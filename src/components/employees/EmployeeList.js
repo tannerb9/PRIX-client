@@ -6,13 +6,9 @@ const EmployeeList = (props) => {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    //NEEDED?
-    //    if (props.currentUser.company.id !== 0) {
-    DataManager.getAll("employee", props.currentUser.company.id).then(
-      (companyEmployees) => {
-        setEmployees(companyEmployees);
-      }
-    );
+    DataManager.getAll("employee").then((companyEmployees) => {
+      setEmployees(companyEmployees);
+    });
   }, [props.currentUser]);
 
   return (
