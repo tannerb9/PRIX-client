@@ -10,20 +10,8 @@ export default {
       },
     }).then((response) => response.json());
   },
-  getAllByCategory(tab, companyId, categoryType, categoryId) {
-    return fetch(
-      `${remoteURL}/${tab}?company=${companyId}&${categoryType}=${categoryId}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Token ${localStorage.getItem("PRIX_token")}`,
-        },
-      }
-    ).then((response) => response.json());
-  },
-  getAll(tab) {
-    return fetch(`${remoteURL}/${tab}`, {
+  getAllByCategory(tab, categoryType, categoryId) {
+    return fetch(`${remoteURL}/${tab}?${categoryType}=${categoryId}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -31,8 +19,8 @@ export default {
       },
     }).then((response) => response.json());
   },
-  getCurrentUser() {
-    return fetch(`${remoteURL}/employee/loggedInEmployee`, {
+  getAll(tab) {
+    return fetch(`${remoteURL}/${tab}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
