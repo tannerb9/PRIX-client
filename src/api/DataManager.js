@@ -22,8 +22,8 @@ export default {
       }
     ).then((response) => response.json());
   },
-  getAll(tab, companyId) {
-    return fetch(`${remoteURL}/${tab}?company=${companyId}`, {
+  getAll(tab) {
+    return fetch(`${remoteURL}/${tab}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

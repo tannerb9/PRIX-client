@@ -9,11 +9,9 @@ const IngredientList = (props) => {
     // NOT SURE IF THIS IS NEEDED?
     //     if (props.currentUser.company.id !== 0) {
 
-    DataManager.getAll("ingredient", props.currentUser.company.id).then(
-      (companyIngredients) => {
-        setIngredients(companyIngredients);
-      }
-    );
+    DataManager.getAll("ingredient").then((companyIngredients) => {
+      setIngredients(companyIngredients);
+    });
   }, [props.currentUser]);
 
   return (
