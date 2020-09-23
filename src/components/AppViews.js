@@ -2,10 +2,11 @@ import { Route, withRouter } from "react-router-dom";
 import React from "react";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
+import AddIngredientForm from "./ingredients/AddIngredientForm";
 import IngredientList from "./ingredients/IngredientList";
 import RecipeList from "./recipes/RecipeList";
 import EmployeeList from "./employees/EmployeeList";
-import DataManager from "../api/DataManager";
+// import DataManager from "../api/DataManager";
 
 const AppViews = (props) => {
   // const [measurementTypes, setMeasurementTypes] = useState([]);
@@ -35,7 +36,12 @@ const AppViews = (props) => {
       <Route
         path="/ingredients"
         render={(props) => {
-          return <IngredientList {...props} />;
+          return (
+            <>
+              <IngredientList {...props} />
+              <AddIngredientForm {...props} />
+            </>
+          );
         }}
       />
       <Route
