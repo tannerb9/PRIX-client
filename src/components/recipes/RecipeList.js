@@ -6,13 +6,10 @@ const RecipeList = (props) => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    //NEEDED?
-    //    if (props.currentUser.company.id !== 0) {
-    DataManager.getAll(
-      "recipe",
-      props.currentUser.company.id
-    ).then((companyRecipes) => setRecipes(companyRecipes));
-  }, [props.currentUser]);
+    DataManager.getAll("recipe").then((companyRecipes) =>
+      setRecipes(companyRecipes)
+    );
+  }, []);
 
   return (
     <article className="recipeList">

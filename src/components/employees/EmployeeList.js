@@ -9,7 +9,7 @@ const EmployeeList = (props) => {
     DataManager.getAll("employee").then((companyEmployees) => {
       setEmployees(companyEmployees);
     });
-  }, [props.currentUser]);
+  }, []);
 
   return (
     <article className="employeeList">

@@ -6,13 +6,10 @@ const IngredientList = (props) => {
   const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
-    // NOT SURE IF THIS IS NEEDED?
-    //     if (props.currentUser.company.id !== 0) {
-
     DataManager.getAll("ingredient").then((companyIngredients) => {
       setIngredients(companyIngredients);
     });
-  }, [props.currentUser]);
+  }, []);
 
   return (
     <article className="ingredientList">
