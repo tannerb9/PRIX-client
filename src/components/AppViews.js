@@ -38,8 +38,8 @@ const AppViews = (props) => {
         render={(props) => {
           return (
             <>
-              <IngredientList {...props} />
               <AddIngredientForm {...props} />
+              <IngredientList {...props} />
             </>
           );
         }}
