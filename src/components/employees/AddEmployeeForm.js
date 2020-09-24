@@ -95,7 +95,18 @@ const AddEmployeeForm = (props) => {
                 required
               />
             </FormGroup>
-            <FormGroup tag="fieldset">
+            <fieldset>
+              <label htmlFor="isAdmin">Admin?</label>
+              <select id="isAdmin" ref={isAdmin}>
+                <option value={true} key={"true"}>
+                  Yes
+                </option>
+                <option value={false} key={"false"}>
+                  No
+                </option>
+              </select>
+            </fieldset>
+            {/* <FormGroup tag="fieldset">
               <legend>Admin?</legend>
               <FormGroup check>
                 <Label check>
@@ -114,7 +125,7 @@ const AddEmployeeForm = (props) => {
                   No
                 </Label>
               </FormGroup>
-            </FormGroup>
+            </FormGroup> */}
             <Button type="submit">Submit</Button>
           </Form>
         </ModalBody>
