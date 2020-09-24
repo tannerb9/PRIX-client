@@ -6,44 +6,42 @@ const EditIngredientForm = (props) => {
   const [modal, setModal] = useState(false);
   const [measurementTypes, setMeasurementTypes] = useState([]);
   const [ingredientCategories, setIngredientCategories] = useState([]);
-  const [ingredient, setIngredient] = useState({
-    name: "",
-    purchase_quantity: 0,
-    purchase_price: 0,
-    ingredient_category: 0,
-    measurement_type: 0,
-  });
   const measurementType = useRef();
   const ingredientCategory = useRef();
   const ingredientName = useRef();
   const purchaseQuantity = useRef();
   const purchasePrice = useRef();
 
-  function handleFieldChange(evt, obj, func) {
-    const stateToChange = { ...obj };
-    stateToChange[evt.target.id] = evt.target.value;
-    func(stateToChange);
-  }
-
   const handleEditIngredient = (e) => {
     e.preventDefault();
+
+    let measurement = measurementType.current.value;
+
+    if (measurementType.current.value === props.measurementType.name) {
+      measurement = parseInt(props.measurementTypeId);
+    }
 
     const editedIngredient = {
       name: ingredientName.current.value,
       purchase_price: purchasePrice.current.value,
       purchase_quantity: purchaseQuantity.current.value,
-      measurement_type_id: measurementType.current.value,
+      measurement_type_id: measurement,
       ingredient_category_id: ingredientCategory.current.value,
     };
-
-    console.log(editedIngredient);
 
     DataManager.put(
       "ingredient",
       props.ingredient.id,
       editedIngredient
     ).then(() => {
-      props.history.push({ pathname: "/ingredients" });
+      props.getIngredients();
+      toggle();
+    });
+  };
+
+  const handleDeleteIngredient = () => {
+    DataManager.delete("ingredient", props.ingredient.id).then(() => {
+      props.getIngredients();
       toggle();
     });
   };
@@ -64,14 +62,6 @@ const EditIngredientForm = (props) => {
     });
   }, []);
 
-  useEffect(() => {
-    DataManager.get("ingredient", props.ingredient.id).then(
-      (ingredient) => {
-        setIngredient(ingredient);
-      }
-    );
-  }, [props.ingredient.id]);
-
   return (
     <>
       <Button onClick={toggle}>Edit Ingredient</Button>
@@ -86,10 +76,7 @@ const EditIngredientForm = (props) => {
               <input
                 id="ingredient-name"
                 ref={ingredientName}
-                defaultValue={ingredient.name}
-                onChange={(evt) =>
-                  handleFieldChange(evt, ingredient, setIngredient)
-                }
+                defaultValue={props.ingredient.name}
                 type="text"
                 className="form-control"
                 required
@@ -117,13 +104,23 @@ const EditIngredientForm = (props) => {
                 Measurement Type{" "}
               </label>
               <select id="measurement-type" ref={measurementType}>
+                <option
+                  value={props.measurementType.id}
+                  key={`measurement--${props.measurementType.id}`}
+                >
+                  {props.measurementType.name}
+                </option>
                 {measurementTypes.map((type) => (
-                  <option
-                    value={type.id}
-                    key={`measurement--${type.id}`}
-                  >
-                    {type.name}
-                  </option>
+                  <>
+                    {props.measurementType.name !== type.name ? (
+                      <option
+                        value={type.id}
+                        key={`measurement--${type.id}`}
+                      >
+                        {type.name}
+                      </option>
+                    ) : null}
+                  </>
                 ))}
               </select>
             </fieldset>
@@ -132,10 +129,7 @@ const EditIngredientForm = (props) => {
               <input
                 id="purchase-quantity"
                 ref={purchaseQuantity}
-                defaultValue={ingredient.purchase_quantity}
-                onChange={(evt) =>
-                  handleFieldChange(evt, ingredient, setIngredient)
-                }
+                defaultValue={props.ingredient.purchase_quantity}
                 type="number"
                 min="0"
                 className="form-control"
@@ -147,10 +141,7 @@ const EditIngredientForm = (props) => {
               <input
                 id="purchase-price"
                 ref={purchasePrice}
-                defaultValue={ingredient.purchase_price}
-                onChange={(evt) =>
-                  handleFieldChange(evt, ingredient, setIngredient)
-                }
+                defaultValue={props.ingredient.purchase_price}
                 type="number"
                 step="0.01"
                 min="0"
@@ -159,6 +150,7 @@ const EditIngredientForm = (props) => {
               />
             </fieldset>
             <Button type="submit">Submit</Button>
+            <Button onClick={handleDeleteIngredient}>Delete</Button>
           </Form>
         </ModalBody>
       </Modal>

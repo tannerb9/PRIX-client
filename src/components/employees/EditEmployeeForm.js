@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DataManager from "../../api/DataManager";
 import {
   Button,
@@ -10,28 +10,33 @@ import {
   ModalBody,
 } from "reactstrap";
 
-const AddEmployeeForm = (props) => {
+const EditEmployeeForm = (props) => {
   const [modal, setModal] = useState(false);
   const firstName = useRef();
   const lastName = useRef();
-  const username = useRef();
-  const password = useRef();
   const email = useRef();
   const isAdmin = useRef();
 
-  const handleAddEmployee = (e) => {
+  const handleEditEmployee = (e) => {
     e.preventDefault();
 
-    const newEmployee = {
+    const editedEmployee = {
       first_name: firstName.current.value,
       last_name: lastName.current.value,
-      username: username.current.value,
-      password: password.current.value,
       email: email.current.value,
       is_admin: isAdmin.current.value,
     };
 
-    DataManager.post("employee", newEmployee).then(() => {
+    DataManager.put("employee", props.employeeId, editedEmployee).then(
+      () => {
+        props.getEmployees();
+        toggle();
+      }
+    );
+  };
+
+  const handleDeleteEmployee = () => {
+    DataManager.delete("employee", props.employeeId).then(() => {
       props.getEmployees();
       toggle();
     });
@@ -43,15 +48,16 @@ const AddEmployeeForm = (props) => {
 
   return (
     <>
-      <Button onClick={toggle}>Add Employee</Button>
+      <Button onClick={toggle}>Edit Employee</Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalBody>
-          <Form onSubmit={handleAddEmployee} id="add-employee-form">
+          <Form onSubmit={handleEditEmployee} id="edit-employee-form">
             <FormGroup>
               <Label for="first-name">First Name</Label>
               <Input
                 type="text"
                 innerRef={firstName}
+                defaultValue={props.employee.first_name}
                 name="first-name"
                 required
                 autoFocus
@@ -61,26 +67,9 @@ const AddEmployeeForm = (props) => {
               <Label for="last-name">Last Name</Label>
               <Input
                 type="text"
+                defaultValue={props.employee.last_name}
                 innerRef={lastName}
                 name="last-name"
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="username">Username</Label>
-              <Input
-                type="text"
-                innerRef={username}
-                name="username"
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                type="text"
-                innerRef={password}
-                name="password"
                 required
               />
             </FormGroup>
@@ -88,6 +77,7 @@ const AddEmployeeForm = (props) => {
               <Label for="email">Email</Label>
               <Input
                 type="text"
+                defaultValue={props.employee.email}
                 innerRef={email}
                 name="email"
                 required
@@ -95,7 +85,11 @@ const AddEmployeeForm = (props) => {
             </FormGroup>
             <fieldset>
               <label htmlFor="isAdmin">Admin?</label>
-              <select id="isAdmin" ref={isAdmin}>
+              <select
+                id="isAdmin"
+                defaultValue={props.isAdmin}
+                ref={isAdmin}
+              >
                 <option value={1} key={"true"}>
                   Yes
                 </option>
@@ -125,6 +119,7 @@ const AddEmployeeForm = (props) => {
               </FormGroup>
             </FormGroup> */}
             <Button type="submit">Submit</Button>
+            <Button onClick={handleDeleteEmployee}>Delete</Button>
           </Form>
         </ModalBody>
       </Modal>
@@ -132,4 +127,4 @@ const AddEmployeeForm = (props) => {
   );
 };
 
-export default AddEmployeeForm;
+export default EditEmployeeForm;
