@@ -5,6 +5,7 @@ import Login from "./auth/Login";
 import AddIngredientForm from "./ingredients/AddIngredientForm";
 import IngredientList from "./ingredients/IngredientList";
 import RecipeList from "./recipes/RecipeList";
+import AddEmployeeForm from "./employees/AddEmployeeForm";
 import EmployeeList from "./employees/EmployeeList";
 // import DataManager from "../api/DataManager";
 
@@ -53,7 +54,12 @@ const AppViews = (props) => {
       <Route
         path="/employees"
         render={(props) => {
-          return <EmployeeList {...props} />;
+          return (
+            <>
+              <AddEmployeeForm {...props} />
+              <EmployeeList {...props} />
+            </>
+          );
         }}
       />
     </>
