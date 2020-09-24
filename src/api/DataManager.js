@@ -28,6 +28,15 @@ export default {
       },
     }).then((response) => response.json());
   },
+  getSiteData(tab) {
+    return fetch(`${remoteURL}/${tab}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Token ${localStorage.getItem("PRIX_token")}`,
+      },
+    }).then((response) => response.json());
+  },
   post(tab, obj) {
     return fetch(`${remoteURL}/${tab}`, {
       method: "POST",
