@@ -12,7 +12,6 @@ const EditIngredientForm = (props) => {
   const purchaseQuantity = useRef();
   const purchasePrice = useRef();
 
-  console.log(ingredientCategory);
   const handleEditIngredient = (e) => {
     e.preventDefault();
 
