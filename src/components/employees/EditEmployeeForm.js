@@ -20,11 +20,17 @@ const EditEmployeeForm = (props) => {
   const handleEditEmployee = (e) => {
     e.preventDefault();
 
+    let adminStatus = isAdmin.current.value;
+
+    if (isAdmin.current.value === props.isAdmin) {
+      adminStatus = props.isAdmin;
+    }
+
     const editedEmployee = {
       first_name: firstName.current.value,
       last_name: lastName.current.value,
       email: email.current.value,
-      is_admin: isAdmin.current.value,
+      is_admin: adminStatus,
     };
 
     DataManager.put("employee", props.employeeId, editedEmployee).then(
@@ -85,39 +91,24 @@ const EditEmployeeForm = (props) => {
             </FormGroup>
             <fieldset>
               <label htmlFor="isAdmin">Admin?</label>
-              <select
-                id="isAdmin"
-                defaultValue={props.isAdmin}
-                ref={isAdmin}
-              >
-                <option value={1} key={"true"}>
-                  Yes
+              <select id="isAdmin" ref={isAdmin}>
+                <option
+                  value={props.isAdmin}
+                  key={`isAdmin--${props.isAdmin}`}
+                >
+                  {props.isAdmin ? "Yes" : "No"}
                 </option>
-                <option value={0} key={"false"}>
-                  No
-                </option>
+                {props.isAdmin !== true ? (
+                  <option value={1} key={"true"}>
+                    Yes
+                  </option>
+                ) : (
+                  <option value={0} key={"false"}>
+                    No
+                  </option>
+                )}
               </select>
             </fieldset>
-            {/* <FormGroup tag="fieldset">
-              <legend>Admin?</legend>
-              <FormGroup check>
-                <Label check>
-                  <Input type="radio" name="radio1" value={true} /> Yes
-                </Label>
-              </FormGroup>
-              <FormGroup check>
-                <Label check>
-                  <Input
-                    type="radio"
-                    name="radio2"
-                    innerRef={isAdmin}
-                    value={false}
-                    defaultChecked
-                  />{" "}
-                  No
-                </Label>
-              </FormGroup>
-            </FormGroup> */}
             <Button type="submit">Submit</Button>
             <Button onClick={handleDeleteEmployee}>Delete</Button>
           </Form>
