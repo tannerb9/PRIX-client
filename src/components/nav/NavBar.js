@@ -1,58 +1,47 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useSimpleAuth from "../../hooks/ui/UseSimpleAuth";
+import { Nav, NavItem, NavLink, Button } from "reactstrap";
 
 const NavBar = (props) => {
   const { isAuthenticated, logout } = useSimpleAuth();
 
   return (
-    <nav>
-      <ul>
-        <li className="nav-item">
-          <Link className="nav-link" to="/ingredients">
-            Ingredients
-          </Link>
-        </li>
-        <li className="nav-link">
-          <Link className="nav-link" to="/recipes">
-            Recipes
-          </Link>
-        </li>
-        <li className="nav-link">
-          <Link className="nav-link" to="/employees">
-            Employees
-          </Link>
-        </li>
-        {isAuthenticated() ? (
-          <li className="nav-item">
-            <button
-              className="nav-link fakeLink"
-              onClick={() => {
-                logout();
-                props.history.push({
-                  pathname: "/login",
-                });
-              }}
-            >
-              Logout
-            </button>
-          </li>
-        ) : (
-          <>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">
-                Register
-              </Link>
-            </li>
-          </>
-        )}
-      </ul>
-    </nav>
+    <Nav tabs>
+      <NavItem>
+        <NavLink href="/ingredients">Ingredients</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/recipes">Recipes</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/employees">Employees</NavLink>
+      </NavItem>
+      {isAuthenticated() ? (
+        <NavItem>
+          <Button
+            className="nav-link fakeLink"
+            onClick={() => {
+              logout();
+              props.history.push({
+                pathname: "/login",
+              });
+            }}
+          >
+            Logout
+          </Button>
+        </NavItem>
+      ) : (
+        <>
+          <NavItem>
+            <Link href="/login">Login</Link>
+          </NavItem>
+          <NavItem>
+            <Link href="/register">Register</Link>
+          </NavItem>
+        </>
+      )}
+    </Nav>
   );
 };
 
