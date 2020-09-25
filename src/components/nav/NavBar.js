@@ -34,10 +34,10 @@ const NavBar = (props) => {
       ) : (
         <>
           <NavItem>
-            <Link href="/login">Login</Link>
+            <NavLink href="/login">Login</NavLink>
           </NavItem>
           <NavItem>
-            <Link href="/register">Register</Link>
+            <NavLink href="/register">Register</NavLink>
           </NavItem>
         </>
       )}
