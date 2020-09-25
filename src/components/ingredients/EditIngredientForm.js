@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DataManager from "../../api/DataManager";
 import { Button, Form, Modal, ModalBody } from "reactstrap";
 
-const AddIngredientForm = (props) => {
+const EditIngredientForm = (props) => {
   const [modal, setModal] = useState(false);
   const [measurementTypes, setMeasurementTypes] = useState([]);
   const [ingredientCategories, setIngredientCategories] = useState([]);
@@ -12,18 +12,43 @@ const AddIngredientForm = (props) => {
   const purchaseQuantity = useRef();
   const purchasePrice = useRef();
 
-  const handleAddIngredient = (e) => {
+  console.log(ingredientCategory);
+  const handleEditIngredient = (e) => {
     e.preventDefault();
 
-    const newIngredient = {
+    let measurement = measurementType.current.value;
+    let category = ingredientCategory.current.value;
+
+    if (measurementType.current.value === props.measurementType.name) {
+      measurement = parseInt(props.measurementTypeId);
+    }
+
+    if (
+      ingredientCategory.current.value === props.ingredientCategory.name
+    ) {
+      category = parseInt(props.ingredientCategoryId);
+    }
+
+    const editedIngredient = {
       name: ingredientName.current.value,
       purchase_price: purchasePrice.current.value,
       purchase_quantity: purchaseQuantity.current.value,
-      measurement_type_id: measurementType.current.value,
-      ingredient_category_id: ingredientCategory.current.value,
+      measurement_type_id: measurement,
+      ingredient_category_id: category,
     };
 
-    DataManager.post("ingredient", newIngredient).then(() => {
+    DataManager.put(
+      "ingredient",
+      props.ingredient.id,
+      editedIngredient
+    ).then(() => {
+      props.getIngredients();
+      toggle();
+    });
+  };
+
+  const handleDeleteIngredient = () => {
+    DataManager.delete("ingredient", props.ingredient.id).then(() => {
       props.getIngredients();
       toggle();
     });
@@ -47,15 +72,19 @@ const AddIngredientForm = (props) => {
 
   return (
     <>
-      <Button onClick={toggle}>Add Ingredient</Button>
+      <Button onClick={toggle}>Edit Ingredient</Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalBody>
-          <Form id="add-ingredient-form">
+          <Form
+            onSubmit={handleEditIngredient}
+            id="edit-ingredient-form"
+          >
             <fieldset>
               <label htmlFor="ingredient-name">Name </label>
               <input
                 id="ingredient-name"
                 ref={ingredientName}
+                defaultValue={props.ingredient.name}
                 type="text"
                 className="form-control"
                 required
@@ -67,11 +96,23 @@ const AddIngredientForm = (props) => {
                 Ingredient Category{" "}
               </label>
               <select id="ingredient-category" ref={ingredientCategory}>
-                {/* <option disabled hidden defaultValue></option> */}
+                <option
+                  value={props.ingredientCategoryId}
+                  key={`ing-category--${props.ingredientCategoryId}`}
+                >
+                  {props.ingredientCategory.name}
+                </option>
                 {ingredientCategories.map((category) => (
-                  <option value={category.id} key={category.id}>
-                    {category.name}
-                  </option>
+                  <>
+                    {props.ingredientCategory.name !== category.name ? (
+                      <option
+                        value={category.id}
+                        key={`ing-category--${category.id}`}
+                      >
+                        {category.name}
+                      </option>
+                    ) : null}
+                  </>
                 ))}
               </select>
             </fieldset>
@@ -80,10 +121,23 @@ const AddIngredientForm = (props) => {
                 Measurement Type{" "}
               </label>
               <select id="measurement-type" ref={measurementType}>
+                <option
+                  value={props.measurementType.id}
+                  key={`measurement--${props.measurementType.id}`}
+                >
+                  {props.measurementType.name}
+                </option>
                 {measurementTypes.map((type) => (
-                  <option value={type.id} key={type.id}>
-                    {type.name}
-                  </option>
+                  <>
+                    {props.measurementType.name !== type.name ? (
+                      <option
+                        value={type.id}
+                        key={`measurement--${type.id}`}
+                      >
+                        {type.name}
+                      </option>
+                    ) : null}
+                  </>
                 ))}
               </select>
             </fieldset>
@@ -92,6 +146,7 @@ const AddIngredientForm = (props) => {
               <input
                 id="purchase-quantity"
                 ref={purchaseQuantity}
+                defaultValue={props.ingredient.purchase_quantity}
                 type="number"
                 min="0"
                 className="form-control"
@@ -103,6 +158,7 @@ const AddIngredientForm = (props) => {
               <input
                 id="purchase-price"
                 ref={purchasePrice}
+                defaultValue={props.ingredient.purchase_price}
                 type="number"
                 step="0.01"
                 min="0"
@@ -110,9 +166,8 @@ const AddIngredientForm = (props) => {
                 required
               />
             </fieldset>
-            <fieldset>
-              <button onClick={handleAddIngredient}>Submit</button>
-            </fieldset>
+            <Button type="submit">Submit</Button>
+            <Button onClick={handleDeleteIngredient}>Delete</Button>
           </Form>
         </ModalBody>
       </Modal>
@@ -120,4 +175,4 @@ const AddIngredientForm = (props) => {
   );
 };
 
-export default AddIngredientForm;
+export default EditIngredientForm;

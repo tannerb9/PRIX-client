@@ -14,7 +14,6 @@ const Register = (props) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    props.setIsLoggedIn(false);
 
     const newUser = {
       username: userName.current.value,
@@ -26,7 +25,6 @@ const Register = (props) => {
     };
 
     register(newUser).then(() => {
-      props.setIsLoggedIn(true);
       props.history.push({
         pathname: "/ingredients",
       });
