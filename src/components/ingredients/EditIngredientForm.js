@@ -12,13 +12,21 @@ const EditIngredientForm = (props) => {
   const purchaseQuantity = useRef();
   const purchasePrice = useRef();
 
+  console.log(ingredientCategory);
   const handleEditIngredient = (e) => {
     e.preventDefault();
 
     let measurement = measurementType.current.value;
+    let category = ingredientCategory.current.value;
 
     if (measurementType.current.value === props.measurementType.name) {
       measurement = parseInt(props.measurementTypeId);
+    }
+
+    if (
+      ingredientCategory.current.value === props.ingredientCategory.name
+    ) {
+      category = parseInt(props.ingredientCategoryId);
     }
 
     const editedIngredient = {
@@ -26,7 +34,7 @@ const EditIngredientForm = (props) => {
       purchase_price: purchasePrice.current.value,
       purchase_quantity: purchaseQuantity.current.value,
       measurement_type_id: measurement,
-      ingredient_category_id: ingredientCategory.current.value,
+      ingredient_category_id: category,
     };
 
     DataManager.put(
@@ -88,14 +96,23 @@ const EditIngredientForm = (props) => {
                 Ingredient Category{" "}
               </label>
               <select id="ingredient-category" ref={ingredientCategory}>
-                {/* <option disabled hidden defaultValue></option> */}
+                <option
+                  value={props.ingredientCategoryId}
+                  key={`ing-category--${props.ingredientCategoryId}`}
+                >
+                  {props.ingredientCategory.name}
+                </option>
                 {ingredientCategories.map((category) => (
-                  <option
-                    value={category.id}
-                    key={`ing-category--${category.id}`}
-                  >
-                    {category.name}
-                  </option>
+                  <>
+                    {props.ingredientCategory.name !== category.name ? (
+                      <option
+                        value={category.id}
+                        key={`ing-category--${category.id}`}
+                      >
+                        {category.name}
+                      </option>
+                    ) : null}
+                  </>
                 ))}
               </select>
             </fieldset>

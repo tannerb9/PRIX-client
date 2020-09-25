@@ -26,8 +26,10 @@ const IngredientList = (props) => {
           />
           <EditIngredientForm
             {...props}
-            measurementTypeId={ingredient.measurement_type_id}
+            ingredientCategory={ingredient.ingredient_category}
+            ingredientCategoryId={ingredient.ingredient_category_id}
             measurementType={ingredient.measurement_type}
+            measurementTypeId={ingredient.measurement_type_id}
             getIngredients={getIngredients}
             key={`edit-ing--${idx}`}
             ingredient={ingredient}

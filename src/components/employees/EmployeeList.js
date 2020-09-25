@@ -22,6 +22,7 @@ const EmployeeList = (props) => {
         <>
           <Employee key={employee.id} employee={employee} />
           <EditEmployeeForm
+            key={`button-${employee.id}`}
             employee={employee.user}
             employeeId={employee.id}
             isAdmin={employee.is_admin}
