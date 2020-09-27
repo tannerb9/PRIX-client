@@ -3,6 +3,7 @@ import Employee from "./Employee";
 import AddEmployeeForm from "./AddEmployeeForm";
 import EditEmployeeForm from "./EditEmployeeForm";
 import DataManager from "../../api/DataManager";
+// import "../List.css";
 
 const EmployeeList = (props) => {
   const [employees, setEmployees] = useState([]);

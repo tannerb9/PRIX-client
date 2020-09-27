@@ -1,0 +1,9 @@
+.recipeList > button,
+.ingredientList > button {
+  margin-left: auto;
+}
+
+.recipeList,
+.ingredientList {
+  display: flex;
+}
