@@ -63,7 +63,7 @@ const EditEmployeeForm = (props) => {
               <Input
                 type="text"
                 innerRef={firstName}
-                defaultValue={props.employee.first_name}
+                defaultValue={props.user.first_name}
                 name="first-name"
                 required
                 autoFocus
@@ -73,7 +73,7 @@ const EditEmployeeForm = (props) => {
               <Label for="last-name">Last Name</Label>
               <Input
                 type="text"
-                defaultValue={props.employee.last_name}
+                defaultValue={props.user.last_name}
                 innerRef={lastName}
                 name="last-name"
                 required
@@ -83,7 +83,7 @@ const EditEmployeeForm = (props) => {
               <Label for="email">Email</Label>
               <Input
                 type="text"
-                defaultValue={props.employee.email}
+                defaultValue={props.user.email}
                 innerRef={email}
                 name="email"
                 required

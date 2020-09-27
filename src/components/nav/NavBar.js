@@ -16,11 +16,11 @@ const NavBar = (props) => {
               Ingredients
             </NavLink>
           </NavItem>
-          {/* <NavItem>
+          <NavItem>
             <NavLink className="navs-link" href="/recipes">
               Recipes
             </NavLink>
-          </NavItem> */}
+          </NavItem>
           <NavItem>
             <NavLink className="navs-link" href="/employees">
               Employees
