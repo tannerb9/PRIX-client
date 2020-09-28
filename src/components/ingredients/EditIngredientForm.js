@@ -83,7 +83,9 @@ const EditIngredientForm = (props) => {
 
   return (
     <>
-      <Button onClick={toggle}>Edit Ingredient</Button>
+      <Button className="edit-btn" onClick={toggle}>
+        Edit Ingredient
+      </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle} close={closeBtn}>
           {props.ingredient.name}
@@ -112,17 +114,14 @@ const EditIngredientForm = (props) => {
               <select id="ingredient-category" ref={ingredientCategory}>
                 <option
                   value={props.ingredientCategoryId}
-                  key={`ing-category--${props.ingredientCategoryId}`}
+                  key={props.ingredientCategoryId}
                 >
                   {props.ingredientCategory.name}
                 </option>
-                {ingredientCategories.map((category) => (
+                {ingredientCategories.map((category, idx) => (
                   <>
                     {props.ingredientCategory.name !== category.name ? (
-                      <option
-                        value={category.id}
-                        key={`ing-category--${category.id}`}
-                      >
+                      <option value={category.id} key={category.id}>
                         {category.name}
                       </option>
                     ) : null}
@@ -141,12 +140,12 @@ const EditIngredientForm = (props) => {
                 >
                   {props.measurementType.name}
                 </option>
-                {measurementTypes.map((type) => (
+                {measurementTypes.map((type, idx) => (
                   <>
                     {props.measurementType.name !== type.name ? (
                       <option
                         value={type.id}
-                        key={`measurement--${type.id}`}
+                        key={`measurement--${idx}`}
                       >
                         {type.name}
                       </option>

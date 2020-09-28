@@ -17,7 +17,11 @@ const IngredientList = (props) => {
 
   return (
     <article className="ingredientList">
-      <AddIngredientForm {...props} getIngredients={getIngredients} />
+      <AddIngredientForm
+        className="add-btn"
+        {...props}
+        getIngredients={getIngredients}
+      />
       <Table hover bordered size="sm">
         <thead>
           <tr>
@@ -28,10 +32,9 @@ const IngredientList = (props) => {
             <th></th>
           </tr>
         </thead>
-        {ingredients.map((ingredient, idx) => (
+        {ingredients.map((ingredient) => (
           <Ingredient
-            key={`ingredient--${idx}`}
-            idx={idx}
+            key={ingredient.id}
             ingredient={ingredient}
             ingredientCategory={ingredient.ingredient_category}
             ingredientCategoryId={ingredient.ingredient_category_id}

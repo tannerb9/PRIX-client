@@ -61,7 +61,9 @@ const EditEmployeeForm = (props) => {
 
   return (
     <>
-      <Button onClick={toggle}>Edit Employee</Button>
+      <Button className="edit-btn" onClick={toggle}>
+        Edit Employee
+      </Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle} close={closeBtn}>
           {props.user.first_name} {props.user.last_name}
