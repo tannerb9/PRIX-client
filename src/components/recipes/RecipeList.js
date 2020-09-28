@@ -5,11 +5,13 @@ import DataManager from "../../api/DataManager";
 const RecipeList = (props) => {
   const [recipes, setRecipes] = useState([]);
 
-  useEffect(() => {
+  const getRecipes = () => {
     DataManager.getAll("recipe").then((companyRecipes) =>
       setRecipes(companyRecipes)
     );
-  }, []);
+  };
+
+  useEffect(getRecipes, []);
 
   return (
     <article className="recipeList">
