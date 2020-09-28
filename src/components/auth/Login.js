@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import useSimpleAuth from "../../hooks/ui/UseSimpleAuth";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 const Login = (props) => {
   const username = useRef();
@@ -21,31 +22,31 @@ const Login = (props) => {
 
   return (
     <main>
-      <form className="form--login" onSubmit={handleLogin}>
-        <h1 className="">Sign In</h1>
-        <fieldset>
-          <label htmlFor="inputUsername">Username </label>
-          <input
-            ref={username}
+      <Form className="loginRegister" onSubmit={handleLogin}>
+        <h1>Sign In</h1>
+        <FormGroup>
+          <Label htmlFor="inputUsername">Username </Label>
+          <Input
+            innerRef={username}
             type="username"
             className="form-control"
             required
             autoFocus
           />
-        </fieldset>
-        <fieldset>
-          <label htmlFor="inputPassword">Password </label>
-          <input
-            ref={password}
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="inputPassword">Password </Label>
+          <Input
+            innerRef={password}
             type="password"
             className="form-control"
             required
           />
-        </fieldset>
-        <fieldset>
-          <button type="submit">Enter</button>
-        </fieldset>
-      </form>
+        </FormGroup>
+        <FormGroup>
+          <Button type="submit">Enter</Button>
+        </FormGroup>
+      </Form>
     </main>
   );
 };

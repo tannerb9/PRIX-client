@@ -33,7 +33,7 @@ const Register = (props) => {
 
   return (
     <main>
-      <form className="form--login" onSubmit={handleRegister}>
+      <form className="loginRegister" onSubmit={handleRegister}>
         <h1 className="">Register to use PRIX</h1>
         <fieldset>
           <label htmlFor="userName">Username </label>

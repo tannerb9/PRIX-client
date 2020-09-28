@@ -1,19 +1,25 @@
 import React from "react";
+import EditEmployeeForm from "./EditEmployeeForm";
 
 const Employee = (props) => {
   return (
-    <section className="employee">
-      <div className="employee-firstName">
-        {props.employee.user.first_name}
-      </div>
-      <div className="employee-lastName">
-        {props.employee.user.last_name}
-      </div>
-      <div className="employee-isAdmin">
-        {props.employee.is_admin ? "Yes" : "No"}
-      </div>
-      <div className="employee-email">{props.employee.user.email}</div>
-    </section>
+    <tbody>
+      <tr>
+        <th scope="row">{props.employee.user.first_name}</th>
+        <td>{props.employee.user.last_name}</td>
+        <td>{props.employee.is_admin ? "Yes" : "No"}</td>
+        <td>{props.employee.user.email}</td>
+        <td>
+          <EditEmployeeForm
+            key={`button-${props.employee.id}`}
+            user={props.user}
+            employeeId={props.employee.id}
+            isAdmin={props.isAdmin}
+            getEmployees={props.getEmployees}
+          />
+        </td>
+      </tr>
+    </tbody>
   );
 };
 

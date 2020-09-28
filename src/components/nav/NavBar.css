@@ -1,0 +1,26 @@
+.main-nav {
+  background-color: black;
+  height: 4rem;
+}
+
+.brand {
+  color: white;
+}
+
+.nav-link {
+  border: none;
+}
+
+.navs-link:visited,
+.navs-link:hover,
+.navs-link:link {
+  color: white;
+}
+
+.nav-item:first-of-type {
+  margin-left: auto;
+}
+
+.fakeLink {
+  background-color: black;
+}

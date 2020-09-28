@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import DataManager from "../../api/DataManager";
-import { Button, Form, Modal, ModalBody } from "reactstrap";
+import {
+  Button,
+  Form,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from "reactstrap";
 
 const EditIngredientForm = (props) => {
   const [modal, setModal] = useState(false);
@@ -12,7 +18,6 @@ const EditIngredientForm = (props) => {
   const purchaseQuantity = useRef();
   const purchasePrice = useRef();
 
-  console.log(ingredientCategory);
   const handleEditIngredient = (e) => {
     e.preventDefault();
 
@@ -58,6 +63,12 @@ const EditIngredientForm = (props) => {
     setModal(!modal);
   };
 
+  const closeBtn = (
+    <button className="close" onClick={toggle}>
+      &times;
+    </button>
+  );
+
   useEffect(() => {
     DataManager.getAll("measurementtype").then((allTypes) => {
       setMeasurementTypes(allTypes);
@@ -72,8 +83,13 @@ const EditIngredientForm = (props) => {
 
   return (
     <>
-      <Button onClick={toggle}>Edit Ingredient</Button>
+      <Button className="edit-btn" onClick={toggle}>
+        Edit Ingredient
+      </Button>
       <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} close={closeBtn}>
+          {props.ingredient.name}
+        </ModalHeader>
         <ModalBody>
           <Form
             onSubmit={handleEditIngredient}
@@ -98,17 +114,14 @@ const EditIngredientForm = (props) => {
               <select id="ingredient-category" ref={ingredientCategory}>
                 <option
                   value={props.ingredientCategoryId}
-                  key={`ing-category--${props.ingredientCategoryId}`}
+                  key={props.ingredientCategoryId}
                 >
                   {props.ingredientCategory.name}
                 </option>
-                {ingredientCategories.map((category) => (
+                {ingredientCategories.map((category, idx) => (
                   <>
                     {props.ingredientCategory.name !== category.name ? (
-                      <option
-                        value={category.id}
-                        key={`ing-category--${category.id}`}
-                      >
+                      <option value={category.id} key={category.id}>
                         {category.name}
                       </option>
                     ) : null}
@@ -127,12 +140,12 @@ const EditIngredientForm = (props) => {
                 >
                   {props.measurementType.name}
                 </option>
-                {measurementTypes.map((type) => (
+                {measurementTypes.map((type, idx) => (
                   <>
                     {props.measurementType.name !== type.name ? (
                       <option
                         value={type.id}
-                        key={`measurement--${type.id}`}
+                        key={`measurement--${idx}`}
                       >
                         {type.name}
                       </option>
@@ -142,7 +155,9 @@ const EditIngredientForm = (props) => {
               </select>
             </fieldset>
             <fieldset>
-              <label htmlFor="purchase-quantity">Quantity </label>
+              <label htmlFor="purchase-quantity">
+                Purchase Quantity{" "}
+              </label>
               <input
                 id="purchase-quantity"
                 ref={purchaseQuantity}
@@ -154,7 +169,7 @@ const EditIngredientForm = (props) => {
               />
             </fieldset>
             <fieldset>
-              <label htmlFor="purchase-price">Price </label>
+              <label htmlFor="purchase-price">Purchase Price </label>
               <input
                 id="purchase-price"
                 ref={purchasePrice}
