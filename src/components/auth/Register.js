@@ -14,7 +14,6 @@ const Register = (props) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    props.setIsLoggedIn(false);
 
     const newUser = {
       username: userName.current.value,
@@ -26,7 +25,6 @@ const Register = (props) => {
     };
 
     register(newUser).then(() => {
-      props.setIsLoggedIn(true);
       props.history.push({
         pathname: "/ingredients",
       });
@@ -35,7 +33,7 @@ const Register = (props) => {
 
   return (
     <main>
-      <form className="form--login" onSubmit={handleRegister}>
+      <form className="loginRegister" onSubmit={handleRegister}>
         <h1 className="">Register to use PRIX</h1>
         <fieldset>
           <label htmlFor="userName">Username </label>

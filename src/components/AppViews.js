@@ -2,7 +2,6 @@ import { Route, withRouter } from "react-router-dom";
 import React from "react";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
-import AddIngredientForm from "./ingredients/AddIngredientForm";
 import IngredientList from "./ingredients/IngredientList";
 import RecipeList from "./recipes/RecipeList";
 import EmployeeList from "./employees/EmployeeList";
@@ -38,7 +37,6 @@ const AppViews = (props) => {
         render={(props) => {
           return (
             <>
-              <AddIngredientForm {...props} />
               <IngredientList {...props} />
             </>
           );

@@ -1,21 +1,49 @@
 import React, { useEffect, useState } from "react";
 import Ingredient from "./Ingredient";
+import AddIngredientForm from "./AddIngredientForm";
 import DataManager from "../../api/DataManager";
+import { Table } from "reactstrap";
 
 const IngredientList = (props) => {
   const [ingredients, setIngredients] = useState([]);
 
-  useEffect(() => {
+  const getIngredients = () => {
     DataManager.getAll("ingredient").then((companyIngredients) => {
       setIngredients(companyIngredients);
     });
-  }, []);
+  };
+
+  useEffect(getIngredients, []);
 
   return (
     <article className="ingredientList">
-      {ingredients.map((ingredient) => (
-        <Ingredient key={ingredient.id} ingredient={ingredient} />
-      ))}
+      <AddIngredientForm
+        className="add-btn"
+        {...props}
+        getIngredients={getIngredients}
+      />
+      <Table hover bordered size="sm">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Purchase Quantity</th>
+            <th>Purchase Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        {ingredients.map((ingredient) => (
+          <Ingredient
+            key={ingredient.id}
+            ingredient={ingredient}
+            ingredientCategory={ingredient.ingredient_category}
+            ingredientCategoryId={ingredient.ingredient_category_id}
+            measurementType={ingredient.measurement_type}
+            measurementTypeId={ingredient.measurement_type_id}
+            getIngredients={getIngredients}
+          />
+        ))}
+      </Table>
     </article>
   );
 };

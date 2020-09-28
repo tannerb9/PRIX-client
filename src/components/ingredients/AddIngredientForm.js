@@ -24,7 +24,7 @@ const AddIngredientForm = (props) => {
     };
 
     DataManager.post("ingredient", newIngredient).then(() => {
-      props.history.push({ pathname: "/ingredients" });
+      props.getIngredients();
       toggle();
     });
   };
