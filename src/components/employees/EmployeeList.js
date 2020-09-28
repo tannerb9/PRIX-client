@@ -20,7 +20,7 @@ const EmployeeList = (props) => {
   return (
     <article className="employeeList">
       <AddEmployeeForm {...props} getEmployees={getEmployees} />
-      <Table hover bordered striped size="sm">
+      <Table hover bordered size="sm">
         <thead>
           <tr>
             <th>First Name</th>

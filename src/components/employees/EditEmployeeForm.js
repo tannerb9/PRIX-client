@@ -7,6 +7,7 @@ import {
   Label,
   Input,
   Modal,
+  ModalHeader,
   ModalBody,
 } from "reactstrap";
 
@@ -52,10 +53,19 @@ const EditEmployeeForm = (props) => {
     setModal(!modal);
   };
 
+  const closeBtn = (
+    <button className="close" onClick={toggle}>
+      &times;
+    </button>
+  );
+
   return (
     <>
       <Button onClick={toggle}>Edit Employee</Button>
       <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} close={closeBtn}>
+          {props.user.first_name} {props.user.last_name}
+        </ModalHeader>
         <ModalBody>
           <Form onSubmit={handleEditEmployee} id="edit-employee-form">
             <FormGroup>

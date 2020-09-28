@@ -1,6 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import DataManager from "../../api/DataManager";
-import { Button, Form, Modal, ModalBody } from "reactstrap";
+import {
+  Button,
+  Form,
+  Modal,
+  ModalHeader,
+  ModalBody,
+} from "reactstrap";
 
 const EditIngredientForm = (props) => {
   const [modal, setModal] = useState(false);
@@ -57,6 +63,12 @@ const EditIngredientForm = (props) => {
     setModal(!modal);
   };
 
+  const closeBtn = (
+    <button className="close" onClick={toggle}>
+      &times;
+    </button>
+  );
+
   useEffect(() => {
     DataManager.getAll("measurementtype").then((allTypes) => {
       setMeasurementTypes(allTypes);
@@ -73,6 +85,9 @@ const EditIngredientForm = (props) => {
     <>
       <Button onClick={toggle}>Edit Ingredient</Button>
       <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} close={closeBtn}>
+          {props.ingredient.name}
+        </ModalHeader>
         <ModalBody>
           <Form
             onSubmit={handleEditIngredient}
@@ -141,7 +156,9 @@ const EditIngredientForm = (props) => {
               </select>
             </fieldset>
             <fieldset>
-              <label htmlFor="purchase-quantity">Quantity </label>
+              <label htmlFor="purchase-quantity">
+                Purchase Quantity{" "}
+              </label>
               <input
                 id="purchase-quantity"
                 ref={purchaseQuantity}
@@ -153,7 +170,7 @@ const EditIngredientForm = (props) => {
               />
             </fieldset>
             <fieldset>
-              <label htmlFor="purchase-price">Price </label>
+              <label htmlFor="purchase-price">Purchase Price </label>
               <input
                 id="purchase-price"
                 ref={purchasePrice}
