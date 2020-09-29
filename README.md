@@ -1,8 +1,9 @@
 <div align="center">
 <h1>PRIX</h1>
-</div>
 
 An app to calculate your food business's recipe costs and profits!
+
+</div>
 
 <div align="center">
   <img src="src/Images/PRIX-ERD.png" />
