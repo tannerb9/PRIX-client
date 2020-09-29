@@ -34,7 +34,7 @@ An app to calculate your food business's recipe costs and profits!
 
 #### ERD
 
-<img src="src/Images/PRIX-ERD.png" width="100%" height="auto">
+<img src="src/images/PRIX-ERD.png" width="100%" height="auto">
 
 #### Contributors
 
