@@ -5,9 +5,9 @@ An app to calculate your food business's recipe costs and profits!
 
 </div>
 
-<div align="center">
+<!-- <div align="center">
   <img src="src/Images/PRIX-ERD.png" />
-</div>
+</div> -->
 
 #### Key Features:
 
