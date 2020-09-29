@@ -12,7 +12,6 @@ const AddRecipeForm = (props) => {
   const servingsPerBatch = useRef();
   const batchSalePrice = useRef();
   const servingSalePrice = useRef();
-  const recipeCategory = useRef();
 
   const quantity = useRef()
   const ingredient = useRef()
