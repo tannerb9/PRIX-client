@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Recipe from "./Recipe";
-import AddRecipeForm from "./AddRecipeForm";
+// import AddRecipeForm from "./AddRecipeForm";
 import DataManager from "../../api/DataManager";
 import { Table } from "reactstrap";
 
@@ -17,11 +17,11 @@ const RecipeList = (props) => {
 
   return (
     <article className="recipeList">
-      <AddRecipeForm
+      {/* <AddRecipeForm
         className="add-btn"
         {...props}
         getRecipes={getRecipes}
-      />
+      /> */}
       <Table hover bordered size="sm">
         <thead>
           <tr>
@@ -29,7 +29,6 @@ const RecipeList = (props) => {
             <th>Category</th>
             <th>Servings Per Batch</th>
             <th>Serving / Batch Sale Price</th>
-            <th></th>
           </tr>
         </thead>
         {recipes.map((recipe) => (

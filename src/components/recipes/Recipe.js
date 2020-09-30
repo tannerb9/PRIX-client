@@ -2,19 +2,21 @@ import React from "react";
 
 const Recipe = (props) => {
   return (
-    <section className="recipe">
-      <div className="recipe-name">{props.recipe.name}</div>
-      <div className="recipe-category">
-        {props.recipe.recipe_category.name}
-      </div>
-      <div className="recipe-servings">
-        {props.recipe.servings_per_batch}
-      </div>
-      <div className="recipe-sale-prices">
-        ${props.recipe.serving_sale_price} | $
-        {props.recipe.batch_sale_price}
-      </div>
-    </section>
+    <tbody>
+      <tr
+        onClick={() => {
+          props.history.push(`/recipe/${props.recipe.id}`);
+        }}
+      >
+        <th scope="row">{props.recipe.name}</th>
+        <td>{props.recipe.recipe_category.name}</td>
+        <td>{props.recipe.servings_per_batch}</td>
+        <td>
+          ${props.recipe.serving_sale_price} | $
+          {props.recipe.batch_sale_price}
+        </td>
+      </tr>
+    </tbody>
   );
 };
 
