@@ -28,11 +28,11 @@ const RecipeList = (props) => {
             <th>Recipe</th>
             <th>Category</th>
             <th>Servings Per Batch</th>
-            <th>Serving / Batch Sale Price</th>
+            <th>Sale Price Serving / Batch</th>
           </tr>
         </thead>
         {recipes.map((recipe) => (
-          <Recipe key={recipe.id} recipe={recipe} />
+          <Recipe key={recipe.id} recipe={recipe} {...props} />
         ))}
       </Table>
     </article>

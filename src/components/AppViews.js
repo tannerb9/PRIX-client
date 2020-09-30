@@ -5,6 +5,7 @@ import Login from "./auth/Login";
 import IngredientList from "./ingredients/IngredientList";
 import RecipeList from "./recipes/RecipeList";
 import EmployeeList from "./employees/EmployeeList";
+import RecipeView from "./recipes/RecipeView";
 // import DataManager from "../api/DataManager";
 
 const AppViews = (props) => {
@@ -46,6 +47,12 @@ const AppViews = (props) => {
         path="/recipes"
         render={(props) => {
           return <RecipeList {...props} />;
+        }}
+      />
+      <Route
+        path="/recipe/:recipeId(\d+)"
+        render={(props) => {
+          return <RecipeView {...props} />;
         }}
       />
       <Route
