@@ -111,11 +111,11 @@ const EditEmployeeForm = (props) => {
                   {props.isAdmin ? "Yes" : "No"}
                 </option>
                 {props.isAdmin !== true ? (
-                  <option value={1} key={"true"}>
+                  <option value={true} key={"true"}>
                     Yes
                   </option>
                 ) : (
-                  <option value={0} key={"false"}>
+                  <option value={false} key={"false"}>
                     No
                   </option>
                 )}
