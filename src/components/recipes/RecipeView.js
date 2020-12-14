@@ -35,6 +35,7 @@ const RecipeView = (props) => {
             <th>Ingredient</th>
             <th>Quantity</th>
             <th>Measurement</th>
+            <th>Cost</th>
           </tr>
         </thead>
         {recipeIngredients.map((ingredient) => (

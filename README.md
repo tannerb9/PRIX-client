@@ -5,10 +5,6 @@ An app to calculate your food business's recipe costs and profits!
 
 </div>
 
-<!-- <div align="center">
-  <img src="src/Images/PRIX-ERD.png" />
-</div> -->
-
 #### Key Features:
 
 - Inventory Costs - Add and view an ingredient's purchase quantity and price.
