@@ -17,11 +17,6 @@ const RecipeList = (props) => {
 
   return (
     <article className="recipeList">
-      {/* <AddRecipeForm
-        className="add-btn"
-        {...props}
-        getRecipes={getRecipes}
-      /> */}
       <Table hover bordered size="sm">
         <thead>
           <tr>
